@@ -23,8 +23,9 @@ const initialToDoList = [
 class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      toDoList: initialToDoList
+      toDoList: localStorage.getItem("TO_DO_LIST") ? JSON.parse(localStorage.getItem("TO_DO_LIST")) : initialToDoList
     };
   }
 
@@ -57,11 +58,19 @@ class App extends React.Component {
     });
   }
 
+  saveList() {
+    localStorage.setItem("TO_DO_LIST", JSON.stringify(this.state.toDoList));
+  }
+
   render() {
     return (
       <>
         <TodoList toDoList={this.state.toDoList} toggleItem={(toDoId) => this.toggleItem(toDoId)} />
-        <TodoForm addItem={(itemText) => this.addItem(itemText)} clearCompleted={() => this.clearCompleted()} />
+        <TodoForm 
+          addItem={(itemText) => this.addItem(itemText)} 
+          clearCompleted={() => this.clearCompleted()}
+          saveList={() => this.saveList()}
+        />
       </>
     );
   }

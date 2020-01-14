@@ -21,12 +21,17 @@ class TodoForm extends Component {
     this.props.clearCompleted();
   };
 
+  handleSave = e => {
+    this.props.saveList();
+  }
+
   render() {
     return (
       <form onSubmit={(e) =>  { e.preventDefault(); }}>
         <input type="text" name="toDoText" value={this.state.toDoText} onChange={this.handleChange} />
         <button onClick={this.handleAdd}>Add</button>
         <button onClick={this.handleClear}>Clear Completed</button>
+        <button onClick={this.handleSave}>Save</button>
       </form>
     );
   };
